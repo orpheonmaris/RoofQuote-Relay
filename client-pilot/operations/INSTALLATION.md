@@ -1,6 +1,6 @@
 # Installation — one roofing client at a time
 
-This checklist is for a **client-approved Google account**. It does not ask you to share passwords or private customer data with RoofQuote Relay or place credentials in GitHub. The account owner must complete Google account authorization, since these permissions cannot legitimately be bypassed by the vendor.
+This checklist is for a **client-approved Google account**. It does not ask you to share passwords or private customer data with RoofQuote Relay or place credentials in GitHub. The account owner must complete Google account authorization, since these permissions cannot legitimately be bypassed by the vendor. The template explicitly creates a **published** Google Form for owner-controlled testing; do not distribute its URL publicly until the customer authorizes live intake.
 
 ## Prerequisites
 
@@ -34,7 +34,7 @@ This checklist is for a **client-approved Google account**. It does not ask you 
 
 **Do not send the Google Form link to homeowners yet.** First obtain the client's written permission for: the actual email copy, company identity and sender address, retention policy, Google data access, anti-spam limits, use of the form on their site, and who updates statuses. Keep the signed record outside the GitHub repository.
 
-When the client authorizes launch, change `clientApprovedLive` to `true`, save and deliberately run `activateClientPilot()` once from the client-owned Apps Script account. Confirm `rqrSystemStatus().mode` is `LIVE`. Then share or embed the customer form on exactly one client-approved website/source. Google Forms supports a share/embedding workflow; follow Google's current UI rather than guessing a hard-coded embed URL.
+When the client authorizes launch, change `clientApprovedLive` to `true`, save and deliberately run `activateClientPilot()` once from the client-owned Apps Script account. Confirm `rqrSystemStatus().mode` is `LIVE`. Then share or embed the customer form on exactly one client-approved website/source. Google Forms supports a share/embedding workflow; follow Google's current UI rather than guessing a hard-coded embed URL. Google changed Forms API publishing defaults during 2026; this script explicitly uses `FormApp.create(name, true)` to publish the form, and the account owner must verify responder permissions.
 
 **Existing website forms or CRMs:** This pilot does not silently integrate with them. Use the client-owned Google Form as the one new intake channel first. A separate, authenticated, source-specific integration can be scoped after verifying the website and data-handling policy. Never post a private customer spreadsheet to the RoofQuote Relay marketing site.
 

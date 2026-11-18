@@ -90,7 +90,8 @@ function installClientPilot() {
   const dash=ss.insertSheet(RQR_TAB.DASH);
   rqrBuildDashboard_(dash);
 
-  const form=FormApp.create(RQR_CONFIG.businessName + ' | Request a roof estimate');
+  // Explicitly publish: the Forms API's default publish behavior changed in 2026.
+  const form=FormApp.create(RQR_CONFIG.businessName + ' | Request a roof estimate', true);
   form.setDescription(
     'Non-emergency request only. Submitting this form does not book an appointment. ' +
     'If you need urgent assistance, call ' + RQR_CONFIG.officePhone + '. ' +

@@ -26,6 +26,8 @@
 - [`operations/OPERATOR_PLAYBOOK.md`](operations/OPERATOR_PLAYBOOK.md): daily operation, pausing and triage.
 - [`operations/DATA_HANDLING.md`](operations/DATA_HANDLING.md): privacy, limits, suppression, and deletion.
 - [`operations/SERVICE_SCOPE.md`](operations/SERVICE_SCOPE.md): proposed pilot deliverables and commercial exclusions.
+- [`operations/CLIENT_INTAKE.md`](operations/CLIENT_INTAKE.md): information to collect from the first real customer without putting it in GitHub.
+- [`operations/QA_REPORT.md`](operations/QA_REPORT.md): 46 mocked tests, known limits and live acceptance requirements.
 
 ## Safety and deployment status
 

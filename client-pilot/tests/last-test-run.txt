@@ -1,0 +1,48 @@
+PASS Default configuration refuses installation with placeholders
+PASS Installs 4 sheets, headers, Google Form and 5 triggers
+PASS Dashboard references correct tracker status columns
+PASS Trigger repairs do not duplicate existing handlers
+PASS Repair restores missing scheduled trigger
+PASS Install twice is rejected without duplicate spreadsheet
+PASS TEST captures lead and sends alert plus owner-addressed sample receipt
+PASS Receipt clearly states no appointment is booked
+PASS Owner alert includes human action and sheet link
+PASS Duplicate lead ID never adds row or sends another email
+PASS Google form response event parses fields using immutable item IDs
+PASS Form recovery captures response missed by trigger
+PASS Recovery of already captured response does not duplicate messages
+PASS Paused service keeps raw form responses for later reconciliation
+PASS Stale recovered homeowner request not acknowledged after 12h
+PASS No go-live without client approval flag
+PASS Approved go-live sends customer receipt to homeowner
+PASS Go-live cannot be repeated
+PASS Invalid email rejects record before sending
+PASS Spreadsheet formula payload neutralized
+PASS Unknown MailApp outcome is not automatically retried
+PASS Quota exhaustion records unknown delivery and keeps lead
+PASS Daily automated lead cap retains incoming record for manual review
+PASS Owner reminder not sent to homeowner, after 45min
+PASS Early lead does not trigger reminder
+PASS Contacted staff status blocks reminder
+PASS Booked status blocks reminders
+PASS Owner can receive at most two reminders per lead
+PASS Cannot repeat owner reminder before interval
+PASS Unknown reminder send never retries
+PASS Status edit stores a recorded-first-contact timestamp
+PASS Do not contact creates salted suppression entry
+PASS Future inquiry from suppressed email alerts owner but not customer
+PASS Weekly report uses observed statuses not revenue estimate
+PASS Health check warns about missing trigger
+PASS Health warning suppressed when same signature repeats same day
+PASS Anonymization is manual, retains counts/IDs and clears PII
+PASS Fresh lead is not anonymized early
+PASS Run status provides live mode and missing trigger info
+PASS No homeowner reminder method or webhook endpoint exists in pilot
+PASS Form item names are not used for response extraction after setup
+PASS Raw email not written to suppression tab
+PASS Repeated emergency pause leaves original mode recoverable
+PASS Email-like spreadsheet formulas are rejected before ingestion
+PASS Recovery incident does not block subsequent valid responses
+PASS Recovered stale inquiry does not simultaneously create duplicate owner reminders
+
+46/46 tests passed

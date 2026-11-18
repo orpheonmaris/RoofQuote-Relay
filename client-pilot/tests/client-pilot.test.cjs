@@ -54,7 +54,7 @@ class Item{
   setRequired(){return this;}setValidation(){return this;}setChoiceValues(){return this;}
 }
 class Form{
-  constructor(id,name){this.id=id;this.name=name;this.items=[];this.responses=[];}
+  constructor(id,name,published){this.id=id;this.name=name;this.published=published;this.items=[];this.responses=[];}
   getId(){return this.id;}getPublishedUrl(){return 'https://docs.google.com/forms/d/e/'+this.id+'/viewform';}
   setDescription(x){this.description=x;return this;}setConfirmationMessage(x){this.confirmation=x;return this;}
   addTextItem(){return this.item();}addParagraphTextItem(){return this.item();}addMultipleChoiceItem(){return this.item();}
@@ -84,7 +84,7 @@ function setup(opts={}){
     flush:()=>{},
     newDataValidation:()=>({requireValueInList(){return this},setAllowInvalid(){return this},build(){return {}}})
   };
-  const forms={create:n=>{const f=new Form('F-'+(Object.keys(d.forms).length+1),n);d.form=f;d.forms[f.id]=f;return f;},
+  const forms={create:(n,published)=>{const f=new Form('F-'+(Object.keys(d.forms).length+1),n,Boolean(published));d.form=f;d.forms[f.id]=f;return f;},
     openById:id=>d.forms[id],createTextValidation:()=>({requireTextIsEmail(){return this},build(){return {}}})};
   const trigger={newTrigger:name=>{
     const t={forForm(){return this},onFormSubmit(){return this},forSpreadsheet(){return this},onEdit(){return this},
@@ -127,7 +127,7 @@ function age(x,row=2,mins=60){
 function mailTo(x){return x.d.mails.map(m=>m.to)}
 
 test('Default configuration refuses installation with placeholders',()=>{const raw=setup({noInstall:true});const c=vm.createContext({...raw.c});vm.runInContext(script+'\nthis.rawInstall=installClientPilot;',c);assert.throws(()=>c.rawInstall(),/Configure company name/);});
-test('Installs 4 sheets, headers, Google Form and 5 triggers',()=>{const x=setup();assert.deepEqual(x.d.ss.sheets.map(s=>s.name),['Leads','Events','Suppressions','Dashboard']);assert.equal(x.d.form.items.length,6);assert.equal(x.d.triggers.length,5);assert.equal(x.d.properties.RQR_MODE,'TEST');});
+test('Installs 4 sheets, headers, Google Form and 5 triggers',()=>{const x=setup();assert.deepEqual(x.d.ss.sheets.map(s=>s.name),['Leads','Events','Suppressions','Dashboard']);assert.equal(x.d.form.items.length,6);assert.equal(x.d.form.published,true);assert.equal(x.d.triggers.length,5);assert.equal(x.d.properties.RQR_MODE,'TEST');});
 test('Dashboard references correct tracker status columns',()=>{const x=setup();assert.equal(x.d.ss.getSheetByName('Dashboard').rows[4][1],'=COUNTIF(Leads!I2:I,"New")');});
 test('Trigger repairs do not duplicate existing handlers',()=>{const x=setup();x.a.repairClientTriggers();x.a.repairClientTriggers();assert.equal(x.d.triggers.length,5);});
 test('Repair restores missing scheduled trigger',()=>{const x=setup();x.d.triggers=x.d.triggers.filter(x=>x!=='runOperations');x.a.repairClientTriggers();assert.equal(x.d.triggers.length,5);});
