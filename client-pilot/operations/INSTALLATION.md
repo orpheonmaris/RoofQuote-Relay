@@ -38,6 +38,41 @@ When the client authorizes launch, change `clientApprovedLive` to `true`, save a
 
 **Existing website forms or CRMs:** This pilot does not silently integrate with them. Use the client-owned Google Form as the one new intake channel first. A separate, authenticated, source-specific integration can be scoped after verifying the website and data-handling policy. Never post a private customer spreadsheet to the RoofQuote Relay marketing site.
 
+## Interrupted first installation: spreadsheet permission or timezone
+
+If Apps Script stops on `ss.setSpreadsheetTimeZone(RQR_CONFIG.timezone)` with
+`You do not have permission to access the requested document`, the newly
+created spreadsheet may already exist, but the installer did **not** reach its
+installation-complete checkpoint.
+
+1. In the exact Google account running Apps Script, open Drive and search for
+   `RoofQuote Relay pilot`. If a partially created tracker exists, leave it
+   private and do not share it with customers. Check whether you can open and
+   edit it; a different account or incomplete Sheets authorization will also
+   affect subsequent spreadsheet operations.
+2. The current source version logs the new tracker ID and catches failure of
+   the optional timezone-setting operation, rather than immediately aborting.
+   **Changes in GitHub do not update any code previously pasted into Apps
+   Script.** Re-copy the source or update only the two lines immediately after
+   `SpreadsheetApp.create(...)` to match the current source.
+3. Save and run `installClientPilot` only **once** after the edit; the
+   installer may create a second, separate tracker because the earlier run
+   failed before persisting its installation IDs. Do not delete existing
+   sheets until you have checked whether they contain any real data.
+4. If the next step still says `You do not have permission`, stop rerunning.
+   Check the account shown in Google Apps Script and Google Sheets; confirm
+   the script was granted full Sheets permissions. If an explicit
+   `oauthScopes` list exists in the manifest, verify that it includes
+   `https://www.googleapis.com/auth/spreadsheets` and the other scopes used
+   by the project. Any changes to scopes require reauthorization.
+5. **Before LIVE activation**, open the finished tracker, go to
+   **File → Settings**, and verify the spreadsheet time zone is
+   `America/Phoenix` (or the company's actual time zone). The Apps Script
+   project time zone is a separate setting.
+
+Do not repeatedly run the installer on unresolved permissions: it can create
+additional private spreadsheets without producing a complete deployment.
+
 ## Troubleshooting
 
 - **No tracker row:** Inspect Google Form's own Responses, Apps Script Executions and trigger permissions. `runOperations` can recover missed events. Do not resubmit real customer details repeatedly to test.
