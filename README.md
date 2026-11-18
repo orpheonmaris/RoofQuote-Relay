@@ -28,3 +28,9 @@ The former `functions/api/contact.js` relay was removed. The Cloudflare `FORM_EN
 4. Keep the Netlify site active until the complete sequence is verified.
 
 No client financial information, homeowner data, or credentials should be committed to this repository.
+
+## Search and social preview metadata
+
+The live canonical hostname is currently `https://roofquote-relay.pages.dev`. Homepage and privacy canonical URLs, Open Graph and Twitter preview image links, Schema.org JSON-LD, `robots.txt`, and `sitemap.xml` use the Cloudflare Pages hostname. The standalone `/thank-you` page is marked `noindex` and has no canonical link. The social preview image is `public/social-preview.png` (1200 × 630 pixels).
+
+**After connecting a purchased custom domain**, replace every `https://roofquote-relay.pages.dev` reference in page metadata, sitemap, and robots with the final canonical domain, then verify both apex and `www` behavior. Do not claim that `roofquoterelay.com` is active until DNS and HTTPS are verified. The legacy Netlify site may remain indexable until its own configuration is updated or redirected.
