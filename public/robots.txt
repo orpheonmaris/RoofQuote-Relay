@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://roofquote-relay.netlify.app/sitemap.xml
