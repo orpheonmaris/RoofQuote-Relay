@@ -66,7 +66,17 @@ function installClientPilot() {
     throw new Error('An installation already exists. Use repairClientTriggers, not a second installation.');
   }
   const ss = SpreadsheetApp.create(RQR_CONFIG.businessName + ' | RoofQuote Relay pilot');
-  ss.setSpreadsheetTimeZone(RQR_CONFIG.timezone);
+  // Log the generated file early: if setup stops before persisting IDs, the
+  // operator can still find this private, partially initialized spreadsheet.
+  Logger.log('CREATED TRACKER (may be incomplete): ' + ss.getId());
+  // This is a presentation preference, not authorization to edit the file.
+  // In some accounts Google denies a timezone change immediately after create.
+  // Continue testing sheet access, and require a manual timezone check.
+  try {
+    ss.setSpreadsheetTimeZone(RQR_CONFIG.timezone);
+  } catch (timezoneError) {
+    Logger.log('TIMEZONE WARNING: Could not set spreadsheet timezone. Verify the tracker timezone under File > Settings before any live use. ' + String(timezoneError.message || timezoneError));
+  }
   const leads = ss.getSheets()[0]; leads.setName(RQR_TAB.LEADS);
   leads.getRange(1,1,1,RQR_HEADERS.length).setValues([RQR_HEADERS]);
   rqrStyleHeaders_(leads,RQR_HEADERS.length);
