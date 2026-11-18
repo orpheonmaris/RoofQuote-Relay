@@ -2,6 +2,20 @@
 
 **Purpose.** A narrowly scoped, deployable operational system for an independent roofing company that wants to capture website estimate inquiries, acknowledge receipt, alert the appropriate employee, track staff handling, send *internal* overdue reminders, and report recorded outcomes. It is **not** the RoofQuote Relay marketing website and is **not** a lead-generation system.
 
+## Done-for-you onboarding (no client coding required)
+
+RoofQuote Relay now has a **client-facing business questionnaire**, a **browser-based operator installer generator**, and a tested handoff/approval procedure.
+
+- [Client onboarding form](https://roofquote-relay.pages.dev/pilot-start): collects business setup details only, sent through the existing Formspree inbox. It is not a homeowner form, invoice or signed live approval.
+- [Operator installer generator](https://roofquote-relay.pages.dev/operator-installer): locally compiles the generic Apps Script with the customer's approved name, monitored email, office phone, privacy notice and time zone. The output remains in **TEST mode**; no company-specific script or private data is committed to GitHub.
+- [Plain-English client guide](onboarding/CLIENT_GUIDE.md): tells the company what it supplies and what the vendor does.
+- [Operator runbook](onboarding/OPERATOR_RUNBOOK.md): supervised install, Google authorization, TEST verification, signoff and handoff.
+- [Go-live authorization](onboarding/LAUNCH_AUTHORIZATION.md) and [owner handoff](onboarding/OWNER_HANDOFF.md): client approval and daily use.
+- [Email templates](onboarding/WELCOME_EMAILS.md): client invitation, setup, acceptance and handoff.
+- [Onboarding tests](onboarding/installer.test.cjs): verifies the generator remains in TEST mode, rejects invalid configuration and uses the current script template.
+
+**Key limitation:** Google installable triggers run as the account that creates them. The client must sign in to its own Google account and review Google's authorization prompts during a supervised setup. The company needs no programming expertise; the operator handles code preparation. This is not a self-installing Google Marketplace add-on.
+
 ## What is included
 
 | Module | What it does | Boundary |

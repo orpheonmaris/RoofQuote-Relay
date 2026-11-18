@@ -18,7 +18,7 @@
 .onboarding-form .hint{color:#647468;line-height:1.5;font-size:.8rem;font-weight:400;}
 .onboarding-form .checkline{display:flex;flex-direction:row;align-items:flex-start;gap:10px;font-weight:500;}
 .onboarding-form .checkline input{min-height:auto;width:auto;margin-top:3px;accent-color:#17382f;}
-.onboarding-form .submit-btn,.onboarding-actions button{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:9px;padding:14px 20px;min-height:48px;font:700 .96rem inherit;cursor:pointer;border:1px solid #17382f;background:#17382f;color:#fff;}
+.onboarding-form .submit-btn,.onboarding-actions button{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:9px;padding:14px 20px;min-height:48px;font-family:inherit;font-size:.96rem;font-weight:700;cursor:pointer;border:1px solid #17382f;background:#17382f;color:#fff;}
 .onboarding-form .submit-btn:hover,.onboarding-actions button:hover{background:#285540;}
 .onboarding-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px;}
 .onboarding-actions button.secondary{background:#fff;color:#17382f;}

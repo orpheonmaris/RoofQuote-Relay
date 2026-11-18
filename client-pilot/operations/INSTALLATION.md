@@ -1,5 +1,7 @@
 # Installation — one roofing client at a time
 
+**Default customer experience:** company owners do not configure code themselves. Follow the [operator-assisted onboarding SOP](../onboarding/OPERATOR_RUNBOOK.md) and use the [local browser installer generator](https://roofquote-relay.pages.dev/operator-installer) to prepare their completed script. The owner still authorizes Google during a supervised account setup; this document remains the technical fallback and acceptance reference.
+
 This checklist is for a **client-approved Google account**. It does not ask you to share passwords or private customer data with RoofQuote Relay or place credentials in GitHub. The account owner must complete Google account authorization, since these permissions cannot legitimately be bypassed by the vendor. The template explicitly creates a **published** Google Form for owner-controlled testing; do not distribute its URL publicly until the customer authorizes live intake.
 
 ## Prerequisites

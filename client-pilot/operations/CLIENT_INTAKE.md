@@ -1,5 +1,7 @@
 # First roofing client — setup information to obtain once a pilot is agreed
 
+**Recommended no-code intake:** send the authorized company contact to https://roofquote-relay.pages.dev/pilot-start, then use the [operator-assisted setup procedure](../onboarding/OPERATOR_RUNBOOK.md) and the [client guide](../onboarding/CLIENT_GUIDE.md). The public onboarding page collects business-only details through the existing Formspree account; submitting it is not a contract or live-messaging approval. Maintain signed records in a private client workspace.
+
 Do not fill this file with private information in public GitHub. Copy it into the client's private workspace and review it with the actual owner.
 
 - **Company identity:** registered or trade name, legitimate website, service territory, office telephone, business hours, privacy notice URL.

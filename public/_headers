@@ -4,3 +4,10 @@
   X-Frame-Options: DENY
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io mailto:
+
+/pilot-start
+  X-Robots-Tag: noindex, nofollow
+/operator-installer
+  X-Robots-Tag: noindex, nofollow
+/onboarding/*
+  X-Robots-Tag: noindex, nofollow
