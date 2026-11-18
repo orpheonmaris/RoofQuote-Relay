@@ -62,7 +62,17 @@ export async function onRequestPost({ request, env }) {
   for (const [key,value] of Object.entries({name,business,email,phone,callback_time:callback,lead_source:source,problem,
     _subject:'New RoofQuote Relay demo request'})) outbound.append(key,value);
   try {
-    const response=await fetch(endpoint,{method:'POST',headers:{Accept:'application/json'},body:outbound,redirect:'manual' /* Cloudflare Workers do not support redirect:'error' */});
+    // Formspree's domain restriction uses Referer. This is a server-to-server
+    // request, so preserve the verified originating website's origin rather
+    // than sending an upstream request with no source-site context.
+    const upstreamHeaders = new Headers({
+      Accept: 'application/json',
+      Referer: site.origin + '/',
+      Origin: site.origin
+    });
+    const browserAgent = request.headers.get('user-agent');
+    if (browserAgent) upstreamHeaders.set('User-Agent', browserAgent.slice(0, 500));
+    const response=await fetch(endpoint,{method:'POST',headers:upstreamHeaders,body:outbound,redirect:'manual'});
     if (!response.ok) { console.warn('RoofQuote Relay form upstream HTTP status:', response.status); return pageResponse('busy',502); }
     // Report successful upstream acceptance without logging any personal data.
     console.info('RoofQuote Relay contact: Formspree accepted submission, HTTP status:', response.status);
