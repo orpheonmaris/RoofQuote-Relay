@@ -275,11 +275,11 @@ function rqrSendReceipt_(row){
     'We received your roofing request | '+RQR_CONFIG.businessName;
   const greeting=rqrFirstName_(r[RQR_C.NAME-1]);
   const body=[mode==='TEST'?'TEST MESSAGE: In LIVE mode this receipt would go to '+actualEmail+'.':'',
-    'Hello '+greeting+',',
-    'Thanks for contacting '+RQR_CONFIG.businessName+'. We received your roofing request and our team will review it.',
-    'This message confirms receipt only; no inspection, appointment, or callback time has been scheduled.',
-    'If you have an urgent leak or safety problem, please call '+RQR_CONFIG.officePhone+' directly.',
-    'To stop further automated email, reply to this message and tell our team. Staff can mark your request Do not contact.',
+    'Hi '+greeting+',',
+    'Thanks for reaching out to '+RQR_CONFIG.businessName+'! We have received your roofing request.',
+    'Our team will review the details and get in touch to discuss the next step.',
+    'If you have an urgent leak or safety concern, please call '+RQR_CONFIG.officePhone+' directly.',
+    'Need to add information or withdraw your request? Just reply to this email.',
     RQR_CONFIG.businessName,
     'Reference: '+r[RQR_C.ID-1]
   ].filter(Boolean).join('\n\n');
