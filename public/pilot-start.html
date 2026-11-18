@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="theme-color" content="#152a25">
+<title>Pilot onboarding | RoofQuote Relay</title>
+<meta name="description" content="Company onboarding information for an approved RoofQuote Relay pilot. No customer passwords or homeowner records.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/onboarding/onboarding.css">
+<script defer src="/app.js"></script>
+<script defer src="/onboarding/pilot-intake.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="topbar"><div class="container nav" id="site-nav">
+<a class="brand" aria-label="RoofQuote Relay home" href="/"><span class="brand-symbol" aria-hidden="true"><svg viewBox="0 0 38 38"><path d="M5 19L19 6l14 13M11 18v14h16V18"></path></svg></span><span>RoofQuote <strong>Relay</strong></span></a>
+<nav id="primary-nav" aria-label="Main navigation"><a href="/#how-it-works">How it works</a><a href="/#pilot">Pilot pricing</a><a href="/#contact">Contact</a></nav>
+<a class="nav-cta" href="/">Back to website <span aria-hidden="true">↗</span></a>
+<button type="button" class="menu-toggle" id="menu-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Open navigation"><span></span><span></span></button>
+</div></header>
+<main class="onboarding-wrap" id="main">
+<div class="onboarding-kicker">RoofQuote Relay / roofing-company setup</div>
+<h1 class="onboarding-title">We'll handle the setup. You keep control.</h1>
+<p class="onboarding-lead">This page is for roofing companies beginning an agreed RoofQuote Relay pilot. Send us a few business details and we will prepare a limited, client-owned Google Forms and Sheets installation. You don't need to write or edit code.</p>
+<div class="onboarding-steps" aria-label="Client onboarding stages">
+<div class="onboarding-step"><strong>1. Share business details</strong><span>Provide a contact, a Google account email you own, and your current intake process.</span></div>
+<div class="onboarding-step"><strong>2. Authorize Google</strong><span>During a guided setup, review and approve the permissions yourself. We never need your password.</span></div>
+<div class="onboarding-step"><strong>3. Approve a tested pilot</strong><span>We test with fictional information, show you the tracker, and launch only after separate written sign-off.</span></div>
+</div>
+<div class="onboarding-grid">
+<section class="onboarding-panel" aria-labelledby="pilot-intake-title">
+<h2 id="pilot-intake-title">Tell us about your company</h2>
+<p>This is a business setup questionnaire, not a homeowner roof-estimate form. No payment is collected here, and sending it does not authorize live emails or start a subscription.</p>
+<form id="pilot-intake-form" class="onboarding-form" method="POST" action="https://formspree.io/f/mvkaalrp">
+<input type="hidden" name="_subject" value="RoofQuote Relay | Client Pilot Onboarding">
+<input type="hidden" name="request_type" value="client_pilot_onboarding">
+<label for="pilot-name">Your name
+<input id="pilot-name" name="name" required autocomplete="name" maxlength="90" placeholder="Your name">
+</label>
+<label for="pilot-business">Roofing company name
+<input id="pilot-business" name="business" required autocomplete="organization" maxlength="120" placeholder="Business name">
+</label>
+<label for="pilot-email">Best email for communication
+<input id="pilot-email" type="email" name="email" required autocomplete="email" maxlength="254" placeholder="office@company.com">
+</label>
+<label for="pilot-phone">Company office phone
+<input id="pilot-phone" type="tel" name="phone" required autocomplete="tel" maxlength="45" placeholder="Business phone">
+</label>
+<label class="full" for="pilot-google-email">Google account used for the installation
+<input id="pilot-google-email" type="email" name="google_account_email" required maxlength="254" placeholder="companyname@gmail.com or authorized Workspace account">
+<span class="hint">The company owns this account and authorizes the system. No password, passkey, or verification code is needed here.</span>
+</label>
+<label for="pilot-website">Company website (optional)
+<input id="pilot-website" type="url" name="company_website" autocomplete="url" maxlength="500" placeholder="https://company.com">
+</label>
+<label for="pilot-privacy">Company privacy notice (if available)
+<input id="pilot-privacy" type="url" name="company_privacy_url" maxlength="600" placeholder="https://company.com/privacy">
+<span class="hint">A suitable published privacy notice is required before any homeowner information is collected.</span>
+</label>
+<label for="pilot-inbound">How do estimate requests arrive?
+<select id="pilot-inbound" name="lead_source" required>
+<option value="" selected disabled>Select one</option>
+<option value="Website forms">Website forms</option>
+<option value="Phone and website forms">Phone and website forms</option>
+<option value="Google and local listings">Google and local listings</option>
+<option value="Multiple inboxes or sources">Multiple inboxes or sources</option>
+<option value="Not sure">Not sure</option>
+</select>
+</label>
+<label for="pilot-auto-ack">Does your site already send confirmations?
+<select id="pilot-auto-ack" name="existing_acknowledgment" required>
+<option value="" selected disabled>Select one</option>
+<option value="Yes">Yes</option>
+<option value="No">No</option>
+<option value="Not sure">Not sure</option>
+</select>
+</label>
+<label for="pilot-volume">Approximate website requests per month
+<select id="pilot-volume" name="monthly_requests" required>
+<option value="" selected disabled>Select one</option>
+<option value="0-10">0–10</option>
+<option value="11-25">11–25</option>
+<option value="26-50">26–50</option>
+<option value="51+">51+</option>
+<option value="Not sure">Not sure</option>
+</select>
+</label>
+<label for="pilot-timezone">Business time zone
+<select id="pilot-timezone" name="timezone" required>
+<option value="America/Phoenix" selected>Arizona / Phoenix</option>
+<option value="America/Denver">Mountain / Denver</option>
+<option value="America/Los_Angeles">Pacific / Los Angeles</option>
+<option value="America/Chicago">Central / Chicago</option>
+<option value="America/New_York">Eastern / New York</option>
+</select>
+</label>
+<label class="full" for="pilot-ops">Who handles incoming requests? (optional)
+<textarea id="pilot-ops" name="problem" rows="3" maxlength="700" placeholder="For example: The owner checks the inbox between jobs and an office administrator makes follow-up calls."></textarea>
+<span class="hint">Business workflow only. Do not include homeowner names, phone numbers, addresses, or other customer information.</span>
+</label>
+<label class="checkline full"><input type="checkbox" name="authorized_representative" value="yes" required>
+<span>I am authorized to discuss the company's inquiry process and pilot setup. I understand this form does not authorize live homeowner messaging or constitute a signed service agreement.</span></label>
+<label class="checkline full"><input type="checkbox" name="no_customer_data" value="yes" required>
+<span>I have not included passwords, private customer records, or payment-card information.</span></label>
+<div class="full">
+<button id="pilot-intake-submit" class="submit-btn" type="submit">Send setup details <span aria-hidden="true">↗</span></button>
+</div>
+</form>
+<p id="pilot-intake-feedback" class="onboarding-status" role="status" aria-live="polite" hidden></p>
+<p class="onboarding-small">Formspree processes this business questionnaire and can email it to RoofQuote Relay. See our <a class="onboarding-link" href="/privacy">privacy notice</a>.</p>
+</section>
+<aside class="onboarding-panel" aria-labelledby="pilot-next">
+<h2 id="pilot-next">What happens after you send this?</h2>
+<ol>
+<li>We review your company's current form and email setup. If your CRM already sends confirmations, we avoid duplicate messages.</li>
+<li>We agree on the exact one-source pilot scope, billing terms, privacy controls, and who handles follow-ups.</li>
+<li>We schedule an owner-assisted Google account setup. You stay signed in and authorize the application permissions; you do not share credentials.</li>
+<li>We test two fictional inquiries, confirm alerts and status tracking, and show you how to use the sheet. Real homeowners are not emailed in TEST mode.</li>
+<li>Only after written go-live approval do we publish the client intake URL and activate transactional acknowledgments.</li>
+</ol>
+<div class="onboarding-callout"><strong>What you receive:</strong> a Google Form, private Google Sheets lead tracker, owner alerts, automatic receipt confirmations after approval, optional internal overdue reminders, and a weekly factual report.</div>
+<h3>What isn't included</h3>
+<p>We do not generate roofing leads, answer calls, book inspections, send SMS, or automatically monitor your existing CRM. Existing website-form integrations require a separate technical review.</p>
+<div class="onboarding-warning"><strong>Account protection:</strong> We will never ask you for your Google password, one-time verification code, private keys, or administrator login. If someone does, stop and contact us directly.</div>
+<p><a class="onboarding-link" href="mailto:roofquoterelay@outlook.com">Questions? Email roofquoterelay@outlook.com</a></p>
+</aside>
+</div>
+<div class="onboarding-footer">RoofQuote Relay · Business owners and authorized staff only · <a class="onboarding-link" href="/privacy">Privacy</a> · <a class="onboarding-link" href="/">Back to home</a></div>
+</main>
+</body>
+</html>
