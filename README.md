@@ -20,3 +20,7 @@ This repository is structured for **Cloudflare Pages Git integration**, using th
 The Cloudflare preview is not a complete replacement for your original Netlify site until `FORM_ENDPOINT` is configured and a real test submission reaches the business inbox.
 
 > This repository deliberately contains **no payment credentials, API keys, homeowner records, or customer data**.
+
+## Troubleshooting: Contact form configuration
+
+If the form POST to `/api/contact` shows **“Our online request form is temporarily unavailable”**, the running Cloudflare Pages Function did not receive a valid `FORM_ENDPOINT` binding. In the Pages project, confirm `Settings → Variables and Secrets` has an exact `FORM_ENDPOINT` text variable set to the full Formspree URL for **Production**, save it, then deploy a new production build. On a successful upstream submission the function redirects to `/thank-you`; if Formspree rejects a request it instead shows a separate temporary-error page. Do not enter any Formspree API keys into public website code.
