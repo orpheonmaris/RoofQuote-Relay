@@ -61,9 +61,9 @@ export async function onRequestPost({ request, env }) {
     _subject:'New RoofQuote Relay demo request'})) outbound.append(key,value);
   try {
     const response=await fetch(endpoint,{method:'POST',headers:{Accept:'application/json'},body:outbound,redirect:'manual' /* Cloudflare Workers do not support redirect:'error' */});
-    if (!response.ok) return pageResponse('busy',502);
+    if (!response.ok) { console.warn('RoofQuote Relay form upstream HTTP status:', response.status); return pageResponse('busy',502); }
     return Response.redirect(new URL('/thank-you', request.url),303);
-  } catch {return pageResponse('busy',502);}
+  } catch (error) { console.warn('RoofQuote Relay form transport error:', error?.name || 'unknown'); return pageResponse('busy',502);}
 }
 
 export async function onRequestGet() {
