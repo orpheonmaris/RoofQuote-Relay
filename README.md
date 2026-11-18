@@ -1,26 +1,30 @@
 # RoofQuote Relay
 
-Static promotional website for the independent RoofQuote Relay pilot service.
+Public website source for RoofQuote Relay, deployed using **Cloudflare Pages** from the `main` branch of this GitHub repository.
 
-This repository is structured for **Cloudflare Pages Git integration**, using the original website files (v4) as its source. No framework or package installation is required.
+## Files and hosting
 
-- **`public/`**: HTML, CSS, JavaScript, icons, site preview image, `robots.txt` and static redirects.
-- **`functions/api/contact.js`**: Cloudflare Pages server-side form handler. Uses the `FORM_ENDPOINT` environment variable to forward validated business inquiries to Formspree; fails visibly and safely if not configured.
-- **`CLOUDFLARE_SETUP.md`**: Step-by-step hosting, form, domain and email migration instructions.
+- `public/`: website HTML, CSS, JavaScript, graphics, privacy notice, and SEO files.
+- Cloudflare Pages: framework preset **None**, build command `exit 0` (or blank), build output `public`, root directory repository root.
+- Any commit to `main` automatically triggers a new Pages production deployment.
 
-## Deployment settings
+## Business contact form
 
-- Platform: Cloudflare **Pages** via GitHub (not Direct Upload)
-- Framework preset: **None**
-- Production branch: `main`
-- Build command: leave blank (or `exit 0` if the dashboard requires a command)
-- Build output directory: `public`
-- Root directory: default / repository root
+The contact form uses **Formspree's official form endpoint directly from the visitor's browser**:
 
-The Cloudflare preview is not a complete replacement for your original Netlify site until `FORM_ENDPOINT` is configured and a real test submission reaches the business inbox.
+`https://formspree.io/f/mvkaalrp`
 
-> This repository deliberately contains **no payment credentials, API keys, homeowner records, or customer data**.
+The browser's real website origin is preserved for Formspree's domain filtering, instead of proxying submissions through a Cloudflare Worker. The form's JavaScript handles pending/error states and redirects to `/thank-you` after an HTTP success; without JavaScript, the native HTML POST works through Formspree's default confirmation. **An HTTP success does not guarantee inbox classification**: Formspree can still mark submissions as spam.
 
-## Troubleshooting: Contact form configuration
+Formspree's project-level **Restrict to Domain** setting, if used, should allow `roofquote-relay.pages.dev`. Confirm `roofquoterelay@outlook.com` is verified as the recipient. Do not disable spam filtering simply to get internal tests through.
 
-If the form POST to `/api/contact` shows **“Our online request form is temporarily unavailable”**, the running Cloudflare Pages Function did not receive a valid `FORM_ENDPOINT` binding. In the Pages project, confirm `Settings → Variables and Secrets` has an exact `FORM_ENDPOINT` text variable set to the full Formspree URL for **Production**, save it, then deploy a new production build. On a successful upstream submission the function redirects to `/thank-you`; if Formspree rejects a request it instead shows a separate temporary-error page. Do not enter any Formspree API keys into public website code.
+The former `functions/api/contact.js` relay was removed. The Cloudflare `FORM_ENDPOINT` environment variable is now unused and may be deleted from project settings; never store form API keys in website code.
+
+## Before retiring Netlify
+
+1. Submit one legitimate, clearly identified internal test from `https://roofquote-relay.pages.dev/`.
+2. Confirm it appears in Formspree's normal **Inbox**, not only Spam.
+3. Confirm that a notification arrives in `roofquoterelay@outlook.com`.
+4. Keep the Netlify site active until the complete sequence is verified.
+
+No client financial information, homeowner data, or credentials should be committed to this repository.

@@ -60,7 +60,49 @@ if(el('calc-inquiries')&&el('calc-margin')){
   el('calc-margin').addEventListener('input',calculate);
   calculate();
 }
-// Contact form submits natively to Netlify Forms; don't intercept submission.
+// Formspree accepts browser-origin submissions from standard HTML forms.
+// AJAX provides an accessible loading/error state and keeps the branded thank-you
+// page. If JavaScript is disabled, the native form action still reaches Formspree.
+const contactForm=el('contact-form');
+if(contactForm){
+  const status=el('contact-status');
+  const button=el('contact-submit');
+  let submitting=false;
+  function showContactStatus(message, error=false){
+    if(!status)return;
+    status.textContent=message;
+    status.hidden=false;
+    status.setAttribute('role',error?'alert':'status');
+  }
+  contactForm.addEventListener('submit',async event=>{
+    event.preventDefault();
+    if(submitting || !contactForm.reportValidity())return;
+    submitting=true;
+    if(button)button.disabled=true;
+    showContactStatus('Sending your request…');
+    try{
+      const response=await fetch(contactForm.action,{
+        method:'POST',
+        body:new FormData(contactForm),
+        headers:{Accept:'application/json'}
+      });
+      if(response.ok){
+        window.location.assign('/thank-you');
+        return;
+      }
+      if(response.status===429){
+        showContactStatus('Too many requests have been sent recently. Please try again in a few minutes, or email us directly.',true);
+      } else {
+        showContactStatus('Your request could not be submitted. Please try again or email us directly at roofquoterelay@outlook.com.',true);
+      }
+    } catch(_){
+      showContactStatus('Connection problem: your request was not confirmed. Please try again or email roofquoterelay@outlook.com.',true);
+    } finally {
+      submitting=false;
+      if(button)button.disabled=false;
+    }
+  });
+}
 if(el('year'))el('year').textContent=String(new Date().getFullYear());
 const toggle=el('menu-toggle');
 if(toggle){

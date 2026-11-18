@@ -1,45 +1,37 @@
-# Upload RoofQuote Relay to GitHub and deploy to Cloudflare Pages
+# RoofQuote Relay: Cloudflare Pages operating guide
 
-## 1 — Populate the repository
+## Deployment
 
-1. Open https://github.com/orpheonmaris/RoofQuote-Relay
-2. If the repository is still empty, choose **uploading an existing file**. Otherwise select **Add file → Upload files**.
-3. Extract the GitHub-ready ZIP. Drag **both folders `public` and `functions` plus the root files** (`README.md`, `.gitignore`, `CLOUDFLARE_SETUP.md`) into GitHub. Do not upload the ZIP itself.
-4. Confirm the GitHub file list has `public/index.html` and `functions/api/contact.js` in those exact directories, then commit to `main`.
-5. Set repo visibility to **Private** if you want restricted source access (Settings → General → Danger Zone → Change repository visibility); Cloudflare supports private GitHub repositories. Do not store API keys in the repository.
+- GitHub: `orpheonmaris/RoofQuote-Relay`, production branch `main`
+- Cloudflare Pages project: `roofquote-relay`
+- Build: framework **None**, output `public`, build command `exit 0` or leave blank
+- Public preview: https://roofquote-relay.pages.dev/
 
-## 2 — Connect Cloudflare Pages to GitHub
+Commit approved website changes to GitHub's `main` branch; Cloudflare Pages deploys them automatically.
 
-1. Open https://dash.cloudflare.com/ → **Workers & Pages** → **Create application** → **Pages** → **Connect to Git**.
-2. Connect GitHub, allow access to `orpheonmaris/RoofQuote-Relay`, choose that repository.
-3. Framework **None**, production branch `main`, **Build command blank** (or `exit 0`), **Build output directory `public`**, root directory default.
-4. Deploy. The `pages.dev` preview will have the website and a Cloudflare Pages Function at `/api/contact`, but the form is not operational until the next section is completed.
+## Contact system
 
-## 3 — Activate the contact form (required before routing real traffic)
+The website posts directly from the browser to `https://formspree.io/f/mvkaalrp`.
 
-The previous form used Netlify Forms, which does not function on Cloudflare. This version uses a Cloudflare Pages Function to forward to Formspree and safely rejects unconfigured submissions.
+- Formspree project: **RoofQuote Relay — Demo Requests**
+- Notification email: `roofquoterelay@outlook.com`
+- If enabled, **Restrict to Domain** is configured at the **Formspree Project Settings**, with `roofquote-relay.pages.dev` (no protocol).
+- The Cloudflare site uses `Referrer-Policy: strict-origin-when-cross-origin`, allowing the true domain origin to be provided to Formspree.
+- The old server-side Cloudflare relay has been removed. Cloudflare's `FORM_ENDPOINT` project variable is obsolete and can be removed; it no longer affects the website.
 
-1. Create a Formspree account at https://formspree.io/ and create a contact form. Configure notifications to **roofquoterelay@outlook.com**, complete any email verification, and copy its endpoint in the exact format `https://formspree.io/f/xxxxxxxx`.
-2. Cloudflare Pages project → **Settings → Variables and Secrets** (may be labeled **Environment variables**). Set **`FORM_ENDPOINT`** to your Formspree form URL in **Production**; add it to Preview if you plan to test there.
-3. Trigger a new deployment if required after adding the variable.
-4. Visit the Cloudflare `pages.dev` site and submit **fictional test data** using an email address you control. Confirm you land on `/thank-you`, the submission appears in Formspree, and a notification arrives at `roofquoterelay@outlook.com`.
-5. Try a blank required field and a second test to ensure validation and notification. If Formspree is disconnected, the handler shows an unavailable message with a mailto link instead of falsely claiming a successful form submission.
+### Delivery verification
 
-Formspree currently offers a Free tier with a limit of 50 submissions/month. More volume may require a paid tier.
+1. Submit a single, accurately labeled internal test on the canonical `pages.dev` homepage (not a numbered deployment preview). Use an address you control.
+2. Verify that Formspree classified it in **Inbox** rather than Spam.
+3. Verify that Formspree emailed `roofquoterelay@outlook.com`. Spam-classified submissions can be delivered upstream without generating notifications.
+4. If submissions still go to Spam, inspect Project Settings, form-specific spam filtering, and any Formspree support feedback. Do not assume an HTTP 200 response proves inbox delivery.
 
-## 4 — Domain and search settings
+The form shows a loading message, disables repeated clicks, handles rate limits, and redirects to the branded thank-you page for an upstream successful response. If scripts are disabled, standard browser form submission uses Formspree's hosted confirmation.
 
-Keep your existing Netlify site up while testing Cloudflare. Do **not** disconnect Netlify Forms until the Cloudflare contact workflow is proven.
+## Privacy and security
 
-After purchasing a domain and switching the site to Cloudflare:
-- Add both `roofquoterelay.com` and `www.roofquoterelay.com` under **Pages → Custom domains** and choose one canonical version.
-- Update `rel=canonical`, `og:url`, `og:image`, Organization schema URLs, and `sitemap.xml` / `robots.txt` to the real domain; these currently reference the previous Netlify URL intentionally while migration is in progress.
-- Configure a real branded email account separately; Cloudflare Email Routing alone only forwards incoming mail.
-- Change DNS only after HTTPS, privacy, form deliverability and mobile layout are tested.
-- Keep the previous Netlify site available until you're satisfied with the cutover.
+The browser submits contact information directly to Formspree, not through a Cloudflare proxy. Review Formspree account privacy, retention, and inbox permissions. The public form ID is not a secret. Don't store API keys, credentials, or customer data in GitHub.
 
-## 5 — Updating the website
+## Domain migration
 
-Edit files in GitHub and commit to `main` to trigger an automatic Cloudflare deployment. Before significant edits, create a branch or pull request to test previews without publishing to production.
-
-For the static website, modify `public/index.html`, `public/styles.css`, `public/app.js`, or other assets. For form handling, modify `functions/api/contact.js`. Do not edit customer records into GitHub.
+Keep the old Netlify site active until the Cloudflare form is delivering correctly. On obtaining a custom domain, configure it in Pages, then update all canonical/OG/JSON-LD/sitemap references to the final domain and allow it in Formspree Project Settings before switching traffic.

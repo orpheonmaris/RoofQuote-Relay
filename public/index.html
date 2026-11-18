@@ -90,10 +90,10 @@
 <section class="section contact-section" id="contact"><div class="container contact-grid"><div><span class="section-kicker inverse">LET'S TALK</span><h2>Tell us how leads reach you. <em>We’ll discuss what to improve.</em></h2><p>Share a little about how requests arrive now. We'll follow up by email and, if you'd prefer, arrange a brief call.</p><div class="contact-fine">Business owners and authorized representatives only. This is not a homeowner roofing estimate service. Please do not submit homeowner data here. Read our <a class="direct-email" href="/privacy">privacy notice</a>. <a class="direct-email" href="mailto:roofquoterelay@outlook.com">Email roofquoterelay@outlook.com directly</a>.</div></div>
 <div class="contact-card"><h3>Request a 15-minute call</h3>
 <p id="contact-description">Your name, business, and email are enough to start. Phone and callback time are optional.</p>
-<!-- Cloudflare Pages Function /api/contact handles valid submissions. Configure a verified form recipient before inviting customers. -->
-<form action="/api/contact" id="contact-form" method="POST">
-<input name="subject" type="hidden" value="New RoofQuote Relay demo request"/>
-<p aria-hidden="true" class="honeypot"><label>Leave this field blank<input autocomplete="off" name="bot-field" tabindex="-1" type="text"/></label></p>
+<!-- Sends directly from the visitor's browser to Formspree; no Cloudflare relay. -->
+<form action="https://formspree.io/f/mvkaalrp" id="contact-form" method="POST">
+<input name="_subject" type="hidden" value="New RoofQuote Relay demo request"/>
+<p aria-hidden="true" class="honeypot"><label>Leave this field blank<input autocomplete="off" name="_gotcha" tabindex="-1" type="text"/></label></p>
 <label for="contact-name">Your name<input autocomplete="name" id="contact-name" maxlength="90" name="name" placeholder="Your name" required=""/></label>
 <label for="contact-business">Your roofing company<input autocomplete="organization" id="contact-business" maxlength="120" name="business" placeholder="e.g. Desert Valley Roofing" required=""/></label>
 <label for="contact-email">Your business email<input autocomplete="email" id="contact-email" inputmode="email" maxlength="254" name="email" placeholder="you@yourbusiness.com" required="" type="email"/></label><div class="form-row contact-extra">
@@ -113,6 +113,7 @@
 <label for="contact-problem">What would you like to improve? (optional)<textarea id="contact-problem" maxlength="500" name="problem" placeholder="e.g. Requests arrive while our team is on roofs and we want one place to track what happened."></textarea>
 </label>
 <button class="button primary fill" id="contact-submit" type="submit"><span>Send demo request</span><span aria-hidden="true">↗</span></button>
+<p class="contact-status" id="contact-status" role="status" aria-live="polite" hidden></p>
 <p class="contact-privacy">We use your information only to respond to this business inquiry. If you add a phone number, you invite a human callback about this request—no automated marketing calls or texts. Do not include homeowners’ personal information. Read our <a class="direct-email" href="/privacy">privacy notice</a>, or <a class="direct-email" href="mailto:roofquoterelay@outlook.com">email us directly</a>.</p>
 </form>
 </div>
