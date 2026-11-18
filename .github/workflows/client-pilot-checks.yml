@@ -1,0 +1,31 @@
+name: RoofQuote Relay client service tests
+on:
+  push:
+    paths:
+      - 'client-pilot/**'
+      - 'public/onboarding/**'
+      - 'public/operator-installer.html'
+      - 'public/pilot-start.html'
+      - 'public/privacy.html'
+      - 'public/_headers'
+      - '.github/workflows/client-pilot-checks.yml'
+  pull_request:
+    paths:
+      - 'client-pilot/**'
+      - 'public/onboarding/**'
+      - 'public/operator-installer.html'
+      - 'public/pilot-start.html'
+      - 'public/privacy.html'
+      - 'public/_headers'
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Verify client pilot behavior
+        run: node client-pilot/tests/client-pilot.test.cjs
+      - name: Verify no-code installer and onboarding
+        run: node client-pilot/onboarding/installer.test.cjs
