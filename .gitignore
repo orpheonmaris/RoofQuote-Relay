@@ -1,0 +1,7 @@
+# Local and build-generated files
+.DS_Store
+node_modules/
+.wrangler/
+.env
+.env.*
+!.env.example
