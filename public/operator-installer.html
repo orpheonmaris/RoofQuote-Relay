@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="theme-color" content="#152a25">
+<title>Operator installer | RoofQuote Relay</title>
+<meta name="description" content="Client-owned private installer preparation for RoofQuote Relay.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/onboarding/onboarding.css">
+<script defer src="/app.js"></script>
+<script defer src="/onboarding/installer.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="topbar"><div class="container nav" id="site-nav">
+<a class="brand" aria-label="RoofQuote Relay home" href="/"><span class="brand-symbol" aria-hidden="true"><svg viewBox="0 0 38 38"><path d="M5 19L19 6l14 13M11 18v14h16V18"></path></svg></span><span>RoofQuote <strong>Relay</strong></span></a>
+<nav id="primary-nav" aria-label="Main navigation"><a href="/">Website</a><a href="/pilot-start">Client intake</a><a href="https://github.com/orpheonmaris/RoofQuote-Relay/tree/main/client-pilot">Operations source</a></nav>
+<a class="nav-cta" href="/">Back to website <span aria-hidden="true">↗</span></a>
+<button type="button" class="menu-toggle" id="menu-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Open navigation"><span></span><span></span></button>
+</div></header>
+<main class="onboarding-wrap" id="main">
+<div class="onboarding-kicker">RoofQuote Relay / operator setup</div>
+<h1 class="onboarding-title">Prepare a client's installation without writing code.</h1>
+<p class="onboarding-lead">Enter the roofing company's approved details once. This tool prepares a complete, company-specific Google Apps Script file for an assisted installation in the company's own Google account. The owner authorizes Google's permissions. No homeowner messages are enabled during setup.</p>
+<div class="onboarding-warning"><strong>Operator tool, not a login portal.</strong> This page is accessible to anyone who has the URL; it is not password-protected. It does not upload, store, or transmit the form entries. Never enter passwords, homeowner records, payment details, or credentials. Use only after a company has agreed to discuss a limited pilot.</div>
+<div class="onboarding-steps" aria-label="Three-stage installation">
+<div class="onboarding-step"><strong>1. Prepare</strong><span>Collect approved company identity, contact, and privacy details.</span></div>
+<div class="onboarding-step"><strong>2. Install together</strong><span>Guide the owner as they authorize Google Sheets, Forms, and email in their own account.</span></div>
+<div class="onboarding-step"><strong>3. Test before launch</strong><span>Verify fictional requests and notifications, then obtain separate written live approval.</span></div>
+</div>
+<div class="onboarding-grid">
+<section class="onboarding-panel" aria-labelledby="setup-heading">
+<h2 id="setup-heading">Company-specific installer</h2>
+<p>All fields are required to generate the installer. The client must have a working Google account and a published, applicable privacy notice before real homeowner intake begins.</p>
+<form id="installer-form" class="onboarding-form" autocomplete="off">
+<label class="full" for="businessName">Roofing company name
+<input id="businessName" name="businessName" type="text" required minlength="3" maxlength="110" placeholder="Example: Desert Valley Roofing">
+</label>
+<label for="ownerEmail">Monitored client email
+<input id="ownerEmail" name="ownerEmail" type="email" required maxlength="254" placeholder="office@roofingcompany.com">
+<span class="hint">The installer owner will receive test messages here.</span>
+</label>
+<label for="officePhone">Business phone number
+<input id="officePhone" name="officePhone" type="tel" required maxlength="45" placeholder="(480) 555-0123">
+<span class="hint">Use the company's actual number for urgent inquiries.</span>
+</label>
+<label class="full" for="privacyUrl">Company's published privacy notice
+<input id="privacyUrl" name="privacyUrl" type="url" required maxlength="700" placeholder="https://company.example/privacy">
+<span class="hint">Use a real HTTPS policy applicable to the company's intake workflow; never reuse RoofQuote Relay's vendor policy.</span>
+</label>
+<label class="full" for="timezone">Client's local timezone
+<select id="timezone" name="timezone" required>
+<option value="America/Phoenix" selected>Arizona / Phoenix (no daylight savings)</option>
+<option value="America/Denver">Mountain / Denver</option>
+<option value="America/Los_Angeles">Pacific / Los Angeles</option>
+<option value="America/Chicago">Central / Chicago</option>
+<option value="America/New_York">Eastern / New York</option>
+</select>
+</label>
+<div class="full">
+<button class="submit-btn" type="submit">Prepare TEST-mode installer <span aria-hidden="true">↗</span></button>
+</div>
+</form>
+<p id="installer-message" class="onboarding-status" role="status" aria-live="polite" hidden></p>
+<section id="installer-result" hidden aria-labelledby="installer-ready-heading">
+<h3 id="installer-ready-heading">Prepared for this client</h3>
+<pre class="onboarding-summary" id="installer-preview"></pre>
+<div class="onboarding-actions">
+<button type="button" id="copy-installer">Copy complete installer code</button>
+<button type="button" id="download-installer" class="secondary">Download prepared Code.gs</button>
+</div>
+<p class="onboarding-small">This script is for one installation. Keep it in a client-approved private place, not a public GitHub repository. It will start in TEST mode.</p>
+</section>
+</section>
+<aside class="onboarding-panel" aria-labelledby="instructions-heading">
+<h2 id="instructions-heading">How you install it for the client</h2>
+<ol>
+<li><strong>Confirm authorization.</strong> Agree on the $250 / 14-day pilot scope (or another signed scope), confirm who monitors inquiries, and document data handling and permissions.</li>
+<li><strong>Use a supervised session.</strong> The client signs into their own Google account. Never request their password or two-factor code.</li>
+<li><strong>Open Google Apps Script.</strong> Guide them to <a class="onboarding-link" href="https://script.google.com/home/projects/create" target="_blank" rel="noopener noreferrer">Create new Apps Script project</a> and name it RoofQuote Relay — [Company].</li>
+<li><strong>Paste the prepared script.</strong> In the editor's Code.gs, select all and paste the downloaded or copied script. They do not need to understand or modify it.</li>
+<li><strong>Authorize once.</strong> Select <code>installClientPilot</code>, press Run once, and have the <em>company account owner</em> review Google's actual permission prompts.</li>
+<li><strong>Verify TEST mode.</strong> Copy the CUSTOMER FORM and PRIVATE TRACKER links; submit only a fictional request and confirm both test messages reach the owner. Verify status tracking, report, triggers, timezone, and alerts.</li>
+<li><strong>Go live separately.</strong> Obtain written authorization for the exact company, scope, sender, privacy policy, and customer-facing copy. A specialist then prepares the account-specific go-live change with the owner. Never activate as part of this wizard.</li>
+</ol>
+<h3>What the customer is responsible for</h3>
+<p>Owning their Google account, reviewing the permissions, approving the emails, monitoring the inbox, contacting their own customers, updating lead statuses, and approving live operation. The vendor handles code preparation, guided setup, and testing.</p>
+<div class="onboarding-callout"><strong>Why company ownership matters:</strong> Google's installable triggers run under the account that creates them. If the vendor created triggers from a vendor account, the automated email sender and long-term ownership would be wrong for this service.</div>
+</aside>
+</div>
+<div class="onboarding-footer">RoofQuote Relay · Assisted onboarding utility · No homeowner data or live sending · <a class="onboarding-link" href="/privacy">Privacy</a> · <a class="onboarding-link" href="mailto:roofquoterelay@outlook.com">roofquoterelay@outlook.com</a></div>
+</main>
+</body>
+</html>
