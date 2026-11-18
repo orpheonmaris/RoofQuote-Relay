@@ -42,7 +42,9 @@ export async function onRequestPost({ request, env }) {
   let data;
   try { data = await request.formData(); } catch { return new Response('Invalid form', {status:400}); }
   if (field(data, 'bot-field', 100)) {
-    // Ignore obvious bot submissions, while avoiding a useful signal to bots.
+    // Quietly discard obvious bot submissions while preserving the normal browser redirect.
+    // This log contains no submitted form values.
+    console.info('RoofQuote Relay contact: honeypot submission ignored');
     return Response.redirect(new URL('/thank-you', request.url), 303);
   }
   const name=field(data,'name',90), business=field(data,'business',120);
@@ -62,6 +64,8 @@ export async function onRequestPost({ request, env }) {
   try {
     const response=await fetch(endpoint,{method:'POST',headers:{Accept:'application/json'},body:outbound,redirect:'manual' /* Cloudflare Workers do not support redirect:'error' */});
     if (!response.ok) { console.warn('RoofQuote Relay form upstream HTTP status:', response.status); return pageResponse('busy',502); }
+    // Report successful upstream acceptance without logging any personal data.
+    console.info('RoofQuote Relay contact: Formspree accepted submission, HTTP status:', response.status);
     return Response.redirect(new URL('/thank-you', request.url),303);
   } catch (error) { console.warn('RoofQuote Relay form transport error:', error?.name || 'unknown'); return pageResponse('busy',502);}
 }
