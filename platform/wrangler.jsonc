@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "roofquote-relay-app",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-11-18",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/", "/login", "/app", "/q/*", "/api/*", "/healthz"]
+  },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "roofquote-relay-platform",
+    "database_id": "REPLACE_WITH_CLOUDFLARE_D1_DATABASE_ID",
+    "migrations_dir": "migrations"
+  }],
+  "triggers": {
+    "crons": ["*/15 * * * *", "0 16 * * MON", "0 17 * * *"]
+  },
+  "observability": {"enabled": true}
+}

@@ -1,0 +1,54 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#102820">
+<title>Lead Desk | RoofQuote Relay</title><link rel="stylesheet" href="/style.css">
+</head><body class="desk-body">
+<div class="workspace">
+<aside class="sidebar">
+  <a class="sidebrand" href="/app"><span class="brand-mark small">R<span>↗</span></span><span>RoofQuote <b>Relay</b><small>CLIENT OPERATIONS</small></span></a>
+  <div class="side-label">WORKSPACE</div>
+  <label class="sr-only" for="org-select">Select a roofing company</label><select id="org-select" class="org-select"></select>
+  <nav class="navside" aria-label="Dashboard navigation">
+   <button class="navactive" data-view="overview"><span aria-hidden="true">▦</span> Overview</button>
+   <button data-view="leads"><span aria-hidden="true">☷</span> Lead inbox</button>
+   <button data-view="automation"><span aria-hidden="true">↻</span> Automation</button>
+   <button data-view="settings"><span aria-hidden="true">⚙</span> Settings</button>
+  </nav>
+  <div class="side-bottom"><div class="small-info"><span class="lightdot"></span><span id="account-email">Loading account…</span></div>
+  <button id="logout" class="textbutton">Sign out ↗</button></div>
+</aside>
+<main class="desk-main" id="main">
+  <div class="topline"><p>OPERATIONS / <span id="crumb">OVERVIEW</span></p><a href="https://roofquote-relay.pages.dev/" rel="noopener" target="_blank">Marketing website ↗</a></div>
+  <header class="dashboard-heading"><div><p class="eyebrow">ROOFQUOTE RELAY / INQUIRY OPERATIONS</p><h1 id="page-title">Your lead desk</h1><p id="page-subtitle" class="intro">A clear picture of every captured request, without another inbox to babysit.</p></div><div class="header-action"><span class="status-pill" id="org-mode">CONFIGURING</span></div></header>
+  <div id="global-notice" class="notice" role="status" aria-live="polite" hidden></div>
+  <div class="no-org" id="empty" hidden><div class="empty-symbol">⌂</div><h2>Your workspace is ready for its first company.</h2><p>Create a company below, then use the safe synthetic test to see how leads appear. Homeowners receive nothing until activation.</p>
+    <form id="create-org-form" class="panel formgrid"><label>Business name<input name="name" required placeholder="Desert Ridge Roofing"></label><label>Company slug<input name="slug" required placeholder="desert-ridge-roofing" pattern="[a-z0-9-]{3,44}"></label><label>Owner email<input name="ownerEmail" type="email" required placeholder="owner@roofingcompany.com"></label><button type="submit">Create draft workspace →</button></form></div>
+  <div id="screens" hidden>
+   <section id="view-overview" class="screen">
+     <div class="kpis">
+      <div class="kpi"><span>RECORDED LEADS</span><strong id="metric-total">—</strong><small>Since installation</small></div>
+      <div class="kpi"><span>AWAITING CONTACT</span><strong id="metric-new">—</strong><small>Staff action needed</small></div>
+      <div class="kpi"><span>LAST 7 DAYS</span><strong id="metric-week">—</strong><small>Submitted inquiries</small></div>
+      <div class="kpi"><span>DELIVERY ISSUES</span><strong id="metric-issues">—</strong><small>Need operator review</small></div>
+     </div>
+     <div class="two-panels"><section class="panel"><div class="panel-heading"><h2>Lead handling</h2><span>Current recorded statuses</span></div><div id="status-bars" class="status-bars"></div></section>
+     <section class="panel"><div class="panel-heading"><h2>System pulse</h2><span>Test before accepting live requests</span></div><p class="pulse-copy" id="pulse-copy">Loading…</p><div class="help-actions"><button id="demo-quick" class="primary-button">Create fictional test inquiry</button><button class="secondary-button" data-view="automation">Review automation</button></div><p class="microcopy">A test inquiry never emails a homeowner and does not make a real booking.</p></section></div>
+     <section class="panel recent-panel"><div class="panel-heading"><h2>Latest requests</h2><button class="linkbutton" data-view="leads">View all →</button></div><div class="table-wrap"><table><thead><tr><th>Submitted</th><th>Contact</th><th>Request</th><th>Status</th></tr></thead><tbody id="recent-table"></tbody></table></div></section>
+   </section>
+   <section id="view-leads" class="screen" hidden>
+     <div class="panel"><div class="panel-heading"><div><h2>Lead inbox</h2><p>All new website inquiries appear here for your team to handle.</p></div><div class="row-actions"><label class="sr-only" for="status-filter">Filter leads</label><select id="status-filter"><option value="">All statuses</option><option value="New">New</option><option value="Contacted">Contacted</option><option value="Booked">Booked</option><option value="Closed - Won">Closed - Won</option><option value="Closed - Lost">Closed - Lost</option><option value="Do not contact">Do not contact</option></select><button id="export-btn" class="secondary-button">Export CSV ↧</button></div></div>
+     <div class="table-wrap"><table><thead><tr><th>Submitted</th><th>Name / contact</th><th>Service / ZIP</th><th>Status</th><th>Messages</th></tr></thead><tbody id="leads-table"></tbody></table></div><p class="microcopy">Status changes are staff-reported; the system cannot observe off-platform phone calls. Showing the 50 newest matching leads.</p></div>
+   </section>
+   <section id="view-automation" class="screen" hidden>
+     <div class="two-panels"><section class="panel"><div class="panel-heading"><h2>Automation workflow</h2><span>Built-in rules</span></div>
+       <ol class="workflow"><li><strong>Homeowner submits request</strong><p>The public form captures a non-emergency roofing request.</p></li><li><strong>Owner alert and acknowledgment</strong><p>Once live, transactional emails are queued and attempted through your verified sender.</p></li><li><strong>Internal reminders</strong><p>For leads marked New: first after <span id="first-duration">45</span> minutes, then after <span id="repeat-duration">120</span> more. A maximum of two staff reminders.</p></li><li><strong>Weekly operations report</strong><p>Every Monday, a report summarizes recorded statuses and outstanding issues.</p></li></ol>
+     </section><section class="panel"><div class="panel-heading"><h2>Delivery exceptions</h2><span>Operator intervention required</span></div><div id="issue-list"></div><p class="microcopy">An uncertain send is never blindly retried. Email provider acceptance isn't proof that the recipient read the message.</p></section></div>
+   </section>
+   <section id="view-settings" class="screen" hidden>
+     <div class="two-panels"><section class="panel"><div class="panel-heading"><h2>Company setup</h2><span>Owners and operators only</span></div><form id="settings-form" class="formgrid"><label>Company phone<input name="phone" required placeholder="(480) 555-0123"></label><label>Privacy notice URL<input name="privacyUrl" type="url" required placeholder="https://roofingcompany.com/privacy"></label><label>Service area<input name="serviceArea" placeholder="Greater Phoenix, Arizona"></label><label>First owner reminder (minutes)<input name="firstReminder" type="number" min="15" max="480" required></label><label>Repeat owner reminder (minutes)<input name="repeatReminder" type="number" min="30" max="1440" required></label><button type="submit">Save company settings</button></form>
+       <hr><form id="staff-form"><label>Add a staff member<input name="email" type="email" placeholder="office@roofingcompany.com" required></label><button type="submit" class="secondary-button">Authorize staff email</button><p class="microcopy">Authorized staff can request a private sign-in link; no passwords are shared.</p></form>
+     </section><section class="panel"><div class="panel-heading"><h2>Go-live controls</h2><span>Explicit owner approval required</span></div><div class="warning">Public intake is disabled by default. Before activating, the company must approve its privacy notice, sender identity, data retention, staff responsibilities and email wording.</div><p><strong>Public form:</strong> <a id="public-form-link" target="_blank" rel="noopener" href="#">Not assigned</a></p><div class="activation"><label class="checkbox"><input id="approval-check" type="checkbox"><span>I am the authorized business owner and approve the live intake and transactional acknowledgments.</span></label><label>Type the activation phrase<input id="approval-phrase" autocomplete="off" placeholder="ACTIVATE company-slug"></label><button id="activate-btn" class="primary-button">Activate approved intake</button><button id="pause-btn" class="secondary-button">Pause public intake</button><p class="microcopy">Only the recorded company owner may activate. Staff and operator cannot activate another company's live messaging without that owner's action.</p></div></section></div>
+   </section>
+  </div>
+</main>
+</div><script src="/app.js" defer></script></body></html>
