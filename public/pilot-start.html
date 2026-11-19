@@ -24,10 +24,10 @@
 <main class="onboarding-wrap" id="main">
 <div class="onboarding-kicker">RoofQuote Relay / roofing-company setup</div>
 <h1 class="onboarding-title">We'll handle the setup. You keep control.</h1>
-<p class="onboarding-lead">This page is for roofing companies beginning an agreed RoofQuote Relay pilot. Send us a few business details and we will prepare a limited, client-owned Google Forms and Sheets installation. You don't need to write or edit code.</p>
+<p class="onboarding-lead">This page is for roofing companies beginning an agreed RoofQuote Relay pilot. Share a few business details so we can prepare your own private RoofQuote Relay workspace. You will manage inquiries through our web application; no Google account or coding is required. We activate live intake only after it has been configured, tested, and approved.</p>
 <div class="onboarding-steps" aria-label="Client onboarding stages">
-<div class="onboarding-step"><strong>1. Share business details</strong><span>Provide a contact, a Google account email you own, and your current intake process.</span></div>
-<div class="onboarding-step"><strong>2. Authorize Google</strong><span>During a guided setup, review and approve the permissions yourself. We never need your password.</span></div>
+<div class="onboarding-step"><strong>1. Share business details</strong><span>Provide a contact, the owner's preferred sign-in email, and your current intake process.</span></div>
+<div class="onboarding-step"><strong>2. Set up your private account</strong><span>After email delivery is verified, the authorized owner signs in using a one-time email link. We never need your password.</span></div>
 <div class="onboarding-step"><strong>3. Approve a tested pilot</strong><span>We test with fictional information, show you the tracker, and launch only after separate written sign-off.</span></div>
 </div>
 <div class="onboarding-grid">
@@ -49,9 +49,9 @@
 <label for="pilot-phone">Company office phone
 <input id="pilot-phone" type="tel" name="phone" required autocomplete="tel" maxlength="45" placeholder="Business phone">
 </label>
-<label class="full" for="pilot-google-email">Google account used for the installation
-<input id="pilot-google-email" type="email" name="google_account_email" required maxlength="254" placeholder="companyname@gmail.com or authorized Workspace account">
-<span class="hint">The company owns this account and authorizes the system. No password, passkey, or verification code is needed here.</span>
+<label class="full" for="pilot-owner-email">Owner email for private dashboard access
+<input id="pilot-owner-email" type="email" name="owner_login_email" required maxlength="254" placeholder="owner@roofingcompany.com">
+<span class="hint">Your authorized owner will receive a secure sign-in invitation when the workspace is ready. No password, one-time code, or account access is required in this form.</span>
 </label>
 <label for="pilot-website">Company website (optional)
 <input id="pilot-website" type="url" name="company_website" autocomplete="url" maxlength="500" placeholder="https://company.com">
@@ -117,14 +117,14 @@
 <ol>
 <li>We review your company's current form and email setup. If your CRM already sends confirmations, we avoid duplicate messages.</li>
 <li>We agree on the exact one-source pilot scope, billing terms, privacy controls, and who handles follow-ups.</li>
-<li>We schedule an owner-assisted Google account setup. You stay signed in and authorize the application permissions; you do not share credentials.</li>
-<li>We test two fictional inquiries, confirm alerts and status tracking, and show you how to use the sheet. Real homeowners are not emailed in TEST mode.</li>
-<li>Only after written go-live approval do we publish the client intake URL and activate transactional acknowledgments.</li>
+<li>After we verify the private workspace and email delivery, the designated owner receives a secure sign-in invitation. You never share passwords or verification codes.</li>
+<li>We test fictional inquiries in the private dashboard, verify alerts and status tracking, and show staff how to use the system. No real homeowner is contacted during testing.</li>
+<li>Only after written go-live approval and successful delivery tests do we activate your branded intake form and transactional acknowledgments.</li>
 </ol>
-<div class="onboarding-callout"><strong>What you receive:</strong> a Google Form, private Google Sheets lead tracker, owner alerts, automatic receipt confirmations after approval, optional internal overdue reminders, and a weekly factual report.</div>
+<div class="onboarding-callout"><strong>Proposed pilot deliverables:</strong> a branded inquiry form, private web dashboard, status tracking, owner alerts, acknowledgments after approval, internal overdue reminders, and factual operational reports. We confirm technical readiness before accepting homeowner information.</div>
 <h3>What isn't included</h3>
 <p>We do not generate roofing leads, answer calls, book inspections, send SMS, or automatically monitor your existing CRM. Existing website-form integrations require a separate technical review.</p>
-<div class="onboarding-warning"><strong>Account protection:</strong> We will never ask you for your Google password, one-time verification code, private keys, or administrator login. If someone does, stop and contact us directly.</div>
+<div class="onboarding-warning"><strong>Account protection:</strong> We will never ask you for passwords, sign-in codes or links, private keys, or administrator credentials. If someone does, stop and contact us directly.</div>
 <p><a class="onboarding-link" href="mailto:roofquoterelay@outlook.com">Questions? Email roofquoterelay@outlook.com</a></p>
 </aside>
 </div>
