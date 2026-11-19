@@ -1,0 +1,37 @@
+name: RoofQuote Relay native platform checks
+on:
+  push:
+    paths:
+      - "platform/**"
+      - ".github/workflows/platform-checks.yml"
+  pull_request:
+    paths:
+      - "platform/**"
+      - ".github/workflows/platform-checks.yml"
+  workflow_dispatch:
+jobs:
+  platform-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Use Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Run isolated D1 and HTTP integration tests
+        run: node --test platform/tests/*.test.mjs
+      - name: Validate Cloudflare configuration and deploy script
+        run: |
+          node --input-type=module -e "
+          import fs from 'node:fs';
+          const p=JSON.parse(fs.readFileSync('platform/package.json','utf8'));
+          const w=JSON.parse(fs.readFileSync('platform/wrangler.jsonc','utf8'));
+          if(!p.scripts.deploy.includes('wrangler d1 migrations apply DB --remote'))throw Error('Missing automatic D1 migrations');
+          if(w.d1_databases?.[0]?.binding!=='DB')throw Error('DB binding missing');
+          if(!fs.existsSync('platform/migrations/0001_schema.sql'))throw Error('Migration file missing');
+          if(!fs.existsSync('platform/src/index.mjs'))throw Error('Worker source missing');
+          if(w.vars?.OPERATOR_EMAIL!=='roofquoterelay@outlook.com')throw Error('Operator email mismatch');
+          console.log('Worker deploy configuration valid');
+          "

@@ -8,7 +8,7 @@ Cloudflare will authenticate you into your own Cloudflare and GitHub accounts, c
 
 If Cloudflare offers customization, keep the app name distinct from the marketing site. You can inspect the selected D1 name and binding `DB`; never grant permissions to an unrelated repository or app. If the deployment wizard asks you to purchase a paid service, do not buy it automatically; the initial test should fit on a free plan, subject to Cloudflare's current plan limits.
 
-**Do not enter personal passwords, Resend API keys, Turnstile secret keys, or session keys into public GitHub files or this chat.** Cloudflare private configuration or its deployment wizard is where those go.
+**Do not enter personal passwords, Resend API keys, Turnstile secret keys, or session keys into public GitHub files or this chat.** The startup wizard intentionally doesn't request these yet; add them later in the Cloudflare dashboard when you're ready to test sign-in. Cloudflare private configuration or its deployment wizard is where those go.
 
 ## Verify infrastructure, not homeowner readiness
 
@@ -23,7 +23,7 @@ When the wizard reports success, open the exact Worker URL Cloudflare provides a
 }
 ```
 
-The boolean flags will change after their respective services are configured. If the Worker returns `database_unavailable`, inspect the build log for a D1 migration error and make sure the generated cloned repository has a real `database_id` value. If the wizard cannot auto-provision D1, fall back to the explicit manual D1 creation workflow in `docs/SETUP_NO_CODE.md`; do not activate intake.
+The boolean flags will change after their respective services are configured. If the Worker returns `database_unavailable`, inspect the build log for a D1 migration error and make sure the generated cloned repository has a real `database_id` value. The migration/deploy command must be the detected `npm run deploy` script (which applies migrations using the `DB` binding before deploying). If Cloudflare selects a plain `npx wrangler deploy` command, change it to `npm run deploy` on the confirmation screen. If the wizard cannot auto-provision D1, fall back to the explicit manual D1 creation workflow in `docs/SETUP_NO_CODE.md`; do not activate intake.
 
 ## Remaining account-owner actions
 

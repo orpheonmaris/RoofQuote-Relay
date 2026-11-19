@@ -4,7 +4,7 @@
 
 **[Deploy RoofQuote Relay Native Platform to Cloudflare](https://deploy.workers.cloudflare.com/?url=https://github.com/orpheonmaris/RoofQuote-Relay/tree/main/platform)**
 
-Cloudflare will copy the self-contained `platform/` app into a **new GitHub repository in your account**, provision and bind its own **D1 database**, apply the initial schema through the repository's `deploy` script, and publish a **separate Cloudflare Worker**. This does **not** modify the existing marketing website (`roofquote-relay.pages.dev`). Cloudflare may ask you to authorize the new project or configure environment variables; **review before approving any paid plan**. If setup does not complete, do not use the new dashboard with real homeowner data.
+Cloudflare will copy the self-contained `platform/` app into a **new GitHub repository in your account**, provision and bind its own **D1 database**, apply the initial schema through the repository's `deploy` script, and publish a **separate Cloudflare Worker**. This does **not** modify the existing marketing website (`roofquote-relay.pages.dev`). The initial infrastructure step intentionally contains no API secrets; the verified sending-domain and spam-protection settings are completed afterward. **Review before approving any paid plan**. If setup does not complete, do not use the new dashboard with real homeowner data.
 
 The application remains **in setup/TEST readiness, not production** until a verified sending domain, Resend, session secret, Turnstile, staff authorization, and real end-to-end acceptance tests are completed. Cloudflare automatically creating a database is not the same as activating the business.
 
