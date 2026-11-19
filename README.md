@@ -16,21 +16,21 @@ The contact form uses **Formspree's official form endpoint directly from the vis
 
 The browser's real website origin is preserved for Formspree's domain filtering, instead of proxying submissions through a Cloudflare Worker. The form's JavaScript handles pending/error states and redirects to `/thank-you` after an HTTP success; without JavaScript, the native HTML POST works through Formspree's default confirmation. **An HTTP success does not guarantee inbox classification**: Formspree can still mark submissions as spam.
 
-Formspree's project-level **Restrict to Domain** setting, if used, should allow `roofquote-relay.pages.dev`. Confirm `roofquoterelay@outlook.com` is verified as the recipient. Do not disable spam filtering simply to get internal tests through.
+Formspree's project-level **Restrict to Domain** setting, if used, should allow `roofquoterelay.com` (and `roofquote-relay.pages.dev` only while using the old hostname for tests). Confirm `roofquoterelay@outlook.com` is verified as the recipient. Do not disable spam filtering simply to get internal tests through.
 
 The former `functions/api/contact.js` relay was removed. The Cloudflare `FORM_ENDPOINT` environment variable is now unused and may be deleted from project settings; never store form API keys in website code.
 
-## Before retiring Netlify
+## Before retiring the old domains
 
-1. Submit one legitimate, clearly identified internal test from `https://roofquote-relay.pages.dev/`.
+1. Submit one legitimate, clearly identified internal test from `https://roofquoterelay.com/`.
 2. Confirm it appears in Formspree's normal **Inbox**, not only Spam.
 3. Confirm that a notification arrives in `roofquoterelay@outlook.com`.
-4. Keep the Netlify site active until the complete sequence is verified.
+4. Leave the old Netlify site up only if needed as a verified fallback; configure an intentional redirect after confirming the new domain and email notifications.
 
 No client financial information, homeowner data, or credentials should be committed to this repository.
 
 ## Search and social preview metadata
 
-The live canonical hostname is currently `https://roofquote-relay.pages.dev`. Homepage and privacy canonical URLs, Open Graph and Twitter preview image links, Schema.org JSON-LD, `robots.txt`, and `sitemap.xml` use the Cloudflare Pages hostname. The standalone `/thank-you` page is marked `noindex` and has no canonical link. The social preview image is `public/social-preview.png` (1200 × 630 pixels).
+The live canonical hostname is `https://roofquoterelay.com`. Homepage and privacy canonical URLs, Open Graph and Twitter preview image links, Schema.org JSON-LD, `robots.txt`, and `sitemap.xml` use the verified custom domain. The standalone `/thank-you` page is marked `noindex` and has no canonical link. The social preview image is `public/social-preview.png` (1200 × 630 pixels).
 
-**After connecting a purchased custom domain**, replace every `https://roofquote-relay.pages.dev` reference in page metadata, sitemap, and robots with the final canonical domain, then verify both apex and `www` behavior. Do not claim that `roofquoterelay.com` is active until DNS and HTTPS are verified. The legacy Netlify site may remain indexable until its own configuration is updated or redirected.
+**Domain confirmed:** `https://roofquoterelay.com/` serves the production website. Metadata now points to it. Check `www.roofquoterelay.com` and make it redirect (301) to the apex through Cloudflare if desired; the apex is the canonical. Consider redirecting `roofquote-relay.pages.dev` and the legacy Netlify domain to the new domain to reduce duplicate access. Keep the Formspree domain restriction aligned with the apex domain and re-test form notification delivery after the migration.
