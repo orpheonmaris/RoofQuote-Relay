@@ -158,10 +158,16 @@ export async function handleFetch(req,env,ctx={}){
   try{
     const url=new URL(req.url),path=url.pathname,method=req.method.toUpperCase();
     if(!env.DB)return fail('database_not_configured',503);
-    if(!env.SESSION_SECRET || String(env.SESSION_SECRET).length<32 || String(env.SESSION_SECRET).startsWith('REPLACE_'))return fail('session_secret_not_configured',503);
+    // Public health route deliberately checks database setup without requiring
+    // an authentication secret. It does not expose company or homeowner data.
     if(path==='/healthz'){
-      try{await env.DB.prepare('SELECT 1 as ok').first();return json({database:'connected',mailConfigured:!!(env.RESEND_API_KEY&&env.MAIL_FROM),spamConfigured:!!(env.TURNSTILE_SECRET&&env.TURNSTILE_SITE_KEY)});}catch{return fail('database_unavailable',503);}
+      try{
+        await env.DB.prepare('SELECT 1 as ok').first();
+        const authReady=!!(env.SESSION_SECRET && String(env.SESSION_SECRET).length>=32 && !String(env.SESSION_SECRET).startsWith('REPLACE_'));
+        return json({database:'connected',authenticationConfigured:authReady,mailConfigured:!!(env.RESEND_API_KEY&&env.MAIL_FROM),spamConfigured:!!(env.TURNSTILE_SECRET&&env.TURNSTILE_SITE_KEY)});
+      }catch{return fail('database_unavailable',503);}
     }
+    if(!env.SESSION_SECRET || String(env.SESSION_SECRET).length<32 || String(env.SESSION_SECRET).startsWith('REPLACE_'))return fail('session_secret_not_configured',503);
     if(path==='/' && method==='GET')return redirect('/app');
     if(path==='/login'&&method==='GET')return page(loginPage());
     const publicMatch=path.match(/^\/q\/([a-z0-9-]{3,44})$/);

@@ -31,6 +31,14 @@ async function configOrg(env,cookie,id){let x=await call(env,`/api/orgs/${id}/se
 async function activate(env,cookie,id,slug='desert-roofing'){const x=await call(env,`/api/orgs/${id}/activation`,'POST',{intent:'activate',authorized:true,confirmation:'ACTIVATE '+slug},cookie);assert.equal(x.res.status,200,JSON.stringify(x.body));}
 const sample=()=>({name:'Internal QA',email:'internal@example.test',phone:'',zip:'85260',service:'Roof inspection',notes:'Synthetic internal test',requestKey:crypto.randomUUID().replaceAll('-',''),turnstile:'testing-token'});
 
+test('Unconfigured installation can verify D1 health without exposing tenant data',async()=>{
+ const env=makeEnv();delete env.SESSION_SECRET;delete env.RESEND_API_KEY;delete env.MAIL_FROM;delete env.TURNSTILE_SITE_KEY;delete env.TURNSTILE_SECRET;
+ const health=await call(env,'/healthz');assert.equal(health.res.status,200);assert.equal(health.body.database,'connected');
+ assert.equal(health.body.authenticationConfigured,false);assert.equal(health.body.mailConfigured,false);assert.equal(health.body.spamConfigured,false);
+ assert.equal(await (await call(env,'/api/me')).res.status,503);
+ assert.equal(JSON.stringify(health.body).includes('owner@relay.test'),false);
+});
+
 test('SQL initializes with tenant keys, no public users, and draft default',async()=>{
  const env=makeEnv();const cookie=await operatorLogin(env);const id=await makeOrg(env,cookie);
  const org=await env.DB.prepare('SELECT * FROM organizations WHERE id=?').bind(id).first();assert.equal(org.state,'draft');assert.equal(org.owner_email,'owner@relay.test');

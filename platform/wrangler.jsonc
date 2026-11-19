@@ -7,16 +7,34 @@
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
-    "run_worker_first": ["/", "/login", "/app", "/q/*", "/api/*", "/healthz"]
+    "run_worker_first": [
+      "/",
+      "/login",
+      "/app",
+      "/q/*",
+      "/api/*",
+      "/healthz"
+    ]
   },
-  "d1_databases": [{
-    "binding": "DB",
-    "database_name": "roofquote-relay-platform",
-    "database_id": "REPLACE_WITH_CLOUDFLARE_D1_DATABASE_ID",
-    "migrations_dir": "migrations"
-  }],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "roofquote-relay-platform",
+      "database_id": "REPLACE_WITH_CLOUDFLARE_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
   "triggers": {
-    "crons": ["*/15 * * * *", "0 16 * * MON", "0 17 * * *"]
+    "crons": [
+      "*/15 * * * *",
+      "0 16 * * MON",
+      "0 17 * * *"
+    ]
   },
-  "observability": {"enabled": true}
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "OPERATOR_EMAIL": "roofquoterelay@outlook.com"
+  }
 }

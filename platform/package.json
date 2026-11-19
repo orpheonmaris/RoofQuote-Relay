@@ -6,11 +6,39 @@
   "scripts": {
     "test": "node --test tests/*.test.mjs",
     "dev": "npx wrangler dev",
-    "deploy": "npx wrangler deploy",
-    "db:local": "npx wrangler d1 migrations apply roofquote-relay-platform --local",
-    "db:remote": "npx wrangler d1 migrations apply roofquote-relay-platform --remote"
+    "deploy": "wrangler d1 migrations apply DB --remote && wrangler deploy",
+    "db:local": "wrangler d1 migrations apply DB --local",
+    "db:remote": "wrangler d1 migrations apply DB --remote"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"
+  },
+  "cloudflare": {
+    "bindings": {
+      "DB": {
+        "description": "Private Cloudflare D1 database for per-company requests and operational records. Cloudflare deploy will provision this database."
+      },
+      "OPERATOR_EMAIL": {
+        "description": "Primary RoofQuote Relay administrator's business email address, not a password."
+      },
+      "SESSION_SECRET": {
+        "description": "Use a randomly generated secret of at least 32 characters. Never use a password or public example value."
+      },
+      "RESEND_API_KEY": {
+        "description": "Email sending API key from Resend; use a restricted key and verified sender domain before enabling email."
+      },
+      "MAIL_FROM": {
+        "description": "Verified transactional sender, e.g. RoofQuote Relay <notifications@your-domain.com>."
+      },
+      "TURNSTILE_SITE_KEY": {
+        "description": "Public Site Key from Cloudflare Turnstile for the app's hostname."
+      },
+      "TURNSTILE_SECRET": {
+        "description": "Private Cloudflare Turnstile Secret Key. Do not publish."
+      },
+      "APP_ORIGIN": {
+        "description": "Actual HTTPS URL assigned to the Worker after deployment. Update when a custom domain is connected."
+      }
+    }
   }
 }

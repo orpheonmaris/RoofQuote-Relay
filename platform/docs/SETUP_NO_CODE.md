@@ -1,3 +1,11 @@
+# RoofQuote Relay — easiest Cloudflare deployment
+
+Use this [**one-click deployment link**](https://deploy.workers.cloudflare.com/?url=https://github.com/orpheonmaris/RoofQuote-Relay/tree/main/platform) instead of creating a D1 database manually. Cloudflare's official **Deploy to Cloudflare** process can create the D1 database and Worker together. It also creates a new copy of the app in GitHub under your account, leaving the marketing site unaffected. Review the Cloudflare screen before confirming; do not purchase a plan without choosing to.
+
+**After the initial deployment**, the application still requires private security and email configuration to work as a customer-facing service. If the wizard requires a verified sender or secret you do not have yet, leave it in setup mode, not live. Confirm the assigned Worker URL in Cloudflare; do not guess one. See `docs/ONE_CLICK_DEPLOY.md` for the exact verification and security gates.
+
+---
+
 # RoofQuote Relay app — setup guide (no programming experience required)
 
 This is a **separate Cloudflare Worker** next to your already-working Cloudflare Pages marketing site. Leave the existing Pages project in place. The application code is built; it still needs a database ID, authorized email domain and Cloudflare settings before it can be used live. **Do not invite homeowners before acceptance tests.**
